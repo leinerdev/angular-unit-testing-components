@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ValueService } from 'src/app/services/value.service';
 import { Product } from './../../models/product.model';
 
-import { ProductsService } from './../../services/product.service';
+import { ProductService } from './../../services/product.service';
 
 @Component({
   selector: 'app-products',
@@ -11,9 +12,11 @@ import { ProductsService } from './../../services/product.service';
 export class ProductsComponent implements OnInit {
 
   products: Product[] = [];
+  rta = '';
 
   constructor(
-    private productsService: ProductsService
+    private productService: ProductService,
+    private valueService: ValueService
   ) { }
 
   ngOnInit(): void {
@@ -21,10 +24,15 @@ export class ProductsComponent implements OnInit {
   }
 
   getAllProducts() {
-    this.productsService.getAllSimple()
+    this.productService.getAll()
     .subscribe(products => {
       this.products = products;
     });
+  }
+
+  async callPromise() {
+    const rta = await this.valueService.getPromiseValue();
+    this.rta = rta;
   }
 
 }

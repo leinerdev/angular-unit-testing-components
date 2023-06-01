@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { ProductsService } from './product.service';
+import { ProductService } from './product.service';
 import { Product, CreateProductDTO, UpdateProductDTO } from '../models/product.model';
 import { generateManyProducts, generateOneProduct } from '../models/product.mock';
 import { environment } from './../../environments/environment';
@@ -9,8 +9,8 @@ import { HttpStatusCode, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from '../interceptors/token.interceptor';
 import { TokenService } from './token.service';
 
-describe('ProductsService', () => {
-  let productService: ProductsService;
+describe('ProductService', () => {
+  let productService: ProductService;
   let httpController: HttpTestingController;
   let tokenService: TokenService;
 
@@ -18,14 +18,14 @@ describe('ProductsService', () => {
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule ],
       providers: [
-        ProductsService,
+        ProductService,
         TokenService,
         {
           provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true
         }
       ]
     });
-    productService = TestBed.inject(ProductsService);
+    productService = TestBed.inject(ProductService);
     httpController = TestBed.inject(HttpTestingController);
     tokenService = TestBed.inject(TokenService);
   });
